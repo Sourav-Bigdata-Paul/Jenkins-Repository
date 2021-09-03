@@ -15,3 +15,8 @@ if(sumDf.select(col(column).cast(LongType)).first.getLong(0) == 0)
 dropColumn += column
 }
 modifiedDf.drop(dropColumn:_*)
+
+
+useful links:
+https://github.com/iqblmoh/machineCoding
+https://workat.tech/machine-coding/article/how-to-practice-for-machine-coding-kp0oj3sw2jca
