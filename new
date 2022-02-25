@@ -1,0 +1,1 @@
+value=`beeline --showHeader=false --outputformat=csv2 --hiveconf mapreduce.job.queuename=NONP.$queueName -u 'jdbc:hive2://tplhc01c002:10000/'"$queueName"';principal=hive/tplhc01c002.iuser.iroot.adidom.com@IUSER.IROOT.ADIDOM.COM' -e "select max($extractrunnumber) from $run_control_table where to_date($extractstarttimestamp)='$load_date'"`
