@@ -1,7 +1,51 @@
 spark2-submit --master yarn --deploy-mode cluster --conf spark.yarn.queue=NONP.HAASBAP00100_10215 --conf spark.executor.instances=22 --conf spark.executor.cores=4 --conf spark.executor.memory=20g --conf spark.sql.shuffle.partitions=176 --driver-memory=6g --conf spark.shuffle.file.buffer=64k --conf spark.reducer.maxSizeInFlight=96m --conf spark.shuffle.io.maxRetries=40 --conf spark.shuffle.io.retryWait=40 --conf spark.shuffle.spill.compress=true --conf spark.shuffle.compress=true --conf spark.maxRemoteBlockSizeFetchToMem=4g  --conf spark.kryoserializer.buffer.max=120m --conf "spark.executor.extraJavaOptions=-XX:+UseG1GC -XX:+PrintFlagsFinal -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -Xms20G -XX:ConcGCThreads=10 -XX:InitiatingHeapOccupancyPercent=30 -XX:MaxGCPauseMillis=100" --class com.bt.ltok.sld.indicators.driver.LtokSldIndicators LTOK-SLD-INDICATORS-0.0.1.jar /user/HAASBAP00100_10215/LTOK_HAAS_DATA_PATH_POC/ltok_sld_indicators.properties
 
 
+SparkSession
+.builder()
+.appName("LTOK-SLD-Indicators")
+.config("spark.sql.tungsten.enabled", "true")
+.config("parquet.filter.statistic.enabled", "true")
+.config("parquet.filter.dictionary.enabled", "true")
+.config("spark.sql.hive.convertMetastoreParquet", "true")
+.config("spark.sql.hive.metastorePartitionPruning", "true")
+.config("spark.sql.parquet.mergeSchema", "false")
+.config("spark.sql.orc.filterPushdown", "true")
+.config("spark.sql.parquet.filterPushdown", "true")
+.config("hive.exec.compress.output", "true")
+.config("hive.exec.dynamic.partition", "true")
+.config("hive.exec.dynamic.partition.mode", "nonstrict")
+.config("spark.sql.parquet.compression.codec", "snappy")
+.config("spark.sql.orc.compression.codec", "snappy")
+.config("spark.sql.files.maxPartitionBytes",134217728)
+.config("spark.sql.files.openCostInBytes",5242880)
+.config("spark.sql.hive.advancedPartitionPredicatePushdown.enabled", "true")
+.config("spark.sql.parquet.pushdown.inFilterThreshold", 100)
+.enableHiveSupport()
+.getOrCreate()
 
+https://developpaper.com/spark-performance-tuning-shuffle-tuning-and-troubleshooting/
+https://towardsdatascience.com/how-does-facebook-tune-apache-spark-for-large-scale-workloads-3238ddda0830
+https://mageswaran1989.medium.com/spark-optimizations-for-advanced-users-spark-cheat-sheet-d74464618c20
+
+.config("parquet.filter.statistic.enabled", "true")
+.config("parquet.filter.dictionary.enabled", "true")
+.config("spark.sql.parquet.filterPushdown", "true")
+.config("spark.sql.parquet.compression.codec", "snappy")
+.config("spark.sql.parquet.pushdown.inFilterThreshold", 100)
+						
+.config("spark.sql.files.maxPartitionBytes",82837504) 	=> 79 mb
+.config("spark.sql.files.openCostInBytes", 8388608)		=>	8 mb
+.config(spark.sql.shuffle.partitions", 280)
+.config("spark.shuffle.file.buffer", "64k")
+.config("spark.reducer.maxSizeInFlight", "96m")
+.config("spark.shuffle.io.maxRetries", 6)
+.config("spark.shuffle.io.retryWait", 60s)
+.config("spark.io.compression.codec", "snappy")
+.config("spark.shuffle.compress",true)
+.config
+.config
+.config
 
 import org.apache.spark.sql.types.DataTypes._
 import scala.collection.mutable.ArrayBuffer
