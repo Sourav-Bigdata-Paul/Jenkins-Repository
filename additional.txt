@@ -64,3 +64,43 @@ modifiedDf.drop(dropColumn:_*)
 useful links:
 https://github.com/iqblmoh/machineCoding
 https://workat.tech/machine-coding/article/how-to-practice-for-machine-coding-kp0oj3sw2jca
+
+
+spark2-submit --master yarn --deploy-mode cluster --conf spark.yarn.queue=NONP.HAASBAP00100_10215 --conf spark.executor.instances=22 --conf spark.executor.cores=4 --conf spark.executor.memory=20g --conf spark.sql.shuffle.partitions=176 --driver-memory=6g --conf spark.shuffle.file.buffer=64k --conf spark.reducer.maxSizeInFlight=96m --conf spark.shuffle.io.maxRetries=40 --conf spark.shuffle.io.retryWait=40 --conf spark.shuffle.spill.compress=true --conf spark.shuffle.compress=true --conf spark.maxRemoteBlockSizeFetchToMem=4g  --conf spark.kryoserializer.buffer.max=120m --conf "spark.executor.extraJavaOptions=-XX:+UseG1GC -XX:+PrintFlagsFinal -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -Xms20G -XX:ConcGCThreads=10 -XX:InitiatingHeapOccupancyPercent=30 -XX:MaxGCPauseMillis=100" --class com.bt.ltok.sld.indicators.driver.LtokSldIndicators LTOK-SLD-INDICATORS-0.0.1.jar /user/HAASBAP00100_10215/LTOK_HAAS_DATA_PATH_POC/ltok_sld_indicators.properties
+
+--conf spark.executor.extraJavaOptions -XX:+UseG1GC -XX:+PrintFlagsFinal -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -Xms88g -Xmx88g -XX:InitiatingHeapOccupancyPercent=35 -XX:ConcGCThread=20
+
+-XX:+UseG1GC -XX:+PrintFlagsFinal -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -Xms88g -Xmx88g -XX:InitiatingHeapOccupancyPercent=35 -XX:ConcGCThread=20
+
+-Xms16g -Xmx16g -XX:+UseG1GC -XX:G1HeapRegionSize=32m -XX:+UseCompressedOops
+
+
+
+-XX:+UseG1GC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps
+-XX:+UseConcMarkSweepGC -XX:+PrintGCTimeStamps -XX:CMSInitiatingOccupancyFraction=70 -XX:+UseParNewGC  -XX:+CMSConcurrentMTEnabled -XX:ParallelCMSThreads=10 -XX:ConcGCThreads=8 -XX:ParallelGCThreads=16
+
+
+
+-Xms16G -Xmx16G -XX:+UseG1GC -XX:+UseStringDeduplication -XX:G1NewSizePercent=25 XX:G1MaxNewSizePercent=30 -XX:ParallelGCThreads=10 -XX:ConcGCThreads=3 -XX:InitiatingHeapOccupancyPercent=40
+
+
+--conf "spark.memory.offHeap.enabled=true" --conf "spark.memory.offHeap.size=3G"
+
+--num-executor 12
+
+suffel partition 15
+
+spark.executor.memory=25
+
+--conf spark.yarn.executor.memoryOverhead=8*1024
+
+--conf spark.executor.cores=2
+
+
+nohup spark-submit --conf spark.yarn.keytab=/home/sc259476/NDAO/NDAO2/NDAOPROD.keytab --conf spark.yarn.principal=NDAOPROD@IUSER.IROOT.ADIDOM.COM --master yarn --deploy-mode client --conf spark.yarn.queue=PROD.HAASAAP0883_13878 --conf spark.executor.instances=6 --conf spark.executor.cores=6 --conf spark.executor.memory=28gb --conf spark.yarn.executor.memoryOverhead=8192 --conf spark.shuffle.consolidateFiles=true --conf spark.sql.shuffle.partitions=500 --conf spark.default.parallelism=500 --driver-memory=24g --conf spark.shuffle.spill.compress=true --conf spark.shuffle.compress=true --conf spark.maxRemoteBlockSizeFetchToMem=6g --conf spark.kryoserializer.buffer.max=130 --class com.bt.ndao.drivers.EnrichmentDriver ndao-0.0.1-SNAPSHOT-uber.jar CDR /user/HAASAAP0883_13878/workspace/NDAO/property_files/enrichment_properties/cdr_enrichment.properties 1234 &
+
+
+spark-submit --master yarn --deploy-mode cluster --conf spark.yarn.queue=NONP.HAASBAP00100_10215 --conf spark.executor.instances=16 --conf spark.executor.cores=3 --conf spark.executor.memory=12gb --conf spark.yarn.executor.memoryOverhead=3072 --conf spark.shuffle.consolidateFiles=true --driver-memory=4g --conf spark.shuffle.spill.compress=true --conf spark.shuffle.compress=true --conf spark.maxRemoteBlockSizeFetchToMem=3g  --conf spark.kryoserializer.buffer.max=110 --class com.bt.ltok.sld.indicators.driver.LtokSldIndicators LTOK-SLD-INDICATORS-0.0.1.jar /user/HAASBAP00100_10215/LTOK_HAAS_DATA_PATH_POC/ltok_sld_indicators.properties
+
+
+spark-submit --master yarn --deploy-mode cluster --conf spark.yarn.queue=NONP.HAASBAP00100_10215 --conf spark.executor.instances=21 --conf spark.executor.cores=4 --conf spark.executor.memory=14g --conf spark.yarn.executor.memoryOverhead=4096 --conf spark.sql.shuffle.partitions=300 --conf spark.default.parallelism=300 --driver-memory=6g --conf spark.shuffle.file.buffer=64k --conf spark.reducer.maxSizeInFlight=96m --conf spark.shuffle.io.maxRetries=30 --conf spark.shuffle.spill.compress=true --conf spark.shuffle.compress=true --conf spark.maxRemoteBlockSizeFetchToMem=4g  --conf spark.kryoserializer.buffer.max=120m --conf spark.executor.extraJavaOptions -XX:+UseG1GC -XX:+PrintFlagsFinal -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -Xms88g -Xmx88g -XX:InitiatingHeapOccupancyPercent=35 -XX:ConcGCThread=20 --class com.bt.ltok.sld.indicators.driver.LtokSldIndicators LTOK-SLD-INDICATORS-0.0.1.jar /user/HAASBAP00100_10215/LTOK_HAAS_DATA_PATH_POC/ltok_sld_indicators.properties​
